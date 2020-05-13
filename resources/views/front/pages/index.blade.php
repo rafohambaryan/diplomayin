@@ -25,9 +25,11 @@
                         <div class="costume-size">
                             <span>{{$item->subheadings->text_header}}</span>
                             <ul>
-                                @foreach(json_decode($item->subheadings->content->content) as $content)
-                                    <li><p>{{$content}}</p></li>
-                                @endforeach
+                                @if($item->subheadings->content->contentType->type === 'json')
+                                    @foreach(json_decode($item->subheadings->content->content) as $content)
+                                        <li><p>{{$content}}</p></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -48,9 +50,11 @@
                         <div class="costume-size">
                             <span>{{$item->subheadings->text_header}}</span>
                             <ul>
-                                @foreach(json_decode($item->subheadings->content->content) as $content)
-                                    <li><p>{{$content}}</p></li>
-                                @endforeach
+                                @if($item->subheadings->content->contentType->type === 'json')
+                                    @foreach(json_decode($item->subheadings->content->content) as $content)
+                                        <li><p>{{$content}}</p></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>

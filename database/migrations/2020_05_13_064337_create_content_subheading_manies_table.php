@@ -17,7 +17,11 @@ class CreateContentSubheadingManiesTable extends Migration
             $table->bigIncrements('id');
             $table->json('content')->nullable();
             $table->string('img')->nullable();
-            $table->enum('content_type', ['text', 'img']);
+            $table->unsignedBigInteger('content_type_id');
+            $table->foreign('content_type_id')
+                ->references('id')
+                ->on('content_types')
+                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->unsignedBigInteger('subheading_many_id');
             $table->foreign('subheading_many_id')
                 ->references('id')

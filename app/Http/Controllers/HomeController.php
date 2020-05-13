@@ -28,11 +28,7 @@ class HomeController extends Controller
         }
         $order = Order::where('present_id', $present->id)->orderBy('order', 'ASC')->get();
         foreach ($order as  $item) {
-            if (!empty(current($item->subheadings->many))){
-                foreach ($item->subheadings->many as $many) {
-                    dump(json_decode($many->content->content));
-                }
-            }
+            dump($item->subheadings->content->contentType->type);
         }
 
 //        return view('pages.present', ['mainSlide' => $present->mainSlide]);

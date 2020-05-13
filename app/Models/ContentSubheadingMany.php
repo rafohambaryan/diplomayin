@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContentSubheadingMany extends Model
 {
-  protected $fillable = [
-    'content','img','subheading_many_id','content_type','present_id'
-  ];
+    protected $fillable = [
+        'content', 'img', 'subheading_many_id', 'content_type_id', 'present_id'
+    ];
 }

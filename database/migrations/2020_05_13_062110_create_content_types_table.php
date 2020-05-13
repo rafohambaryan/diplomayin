@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateColorsTable extends Migration
+class CreateContentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +14,14 @@ class CreateColorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('content_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('code', 30)->index();
+            $table->string('type');
             $table->timestamps();
         });
-        DB::unprepared(File::get(base_path() . '/database/seeds/dumps/colors.sql'));
+        Artisan::call('db:seed', [
+            '--class' => ContentTypeSeader::class
+        ]);
     }
 
     /**
@@ -31,6 +31,6 @@ class CreateColorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('content_types');
     }
 }

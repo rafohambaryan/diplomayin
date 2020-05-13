@@ -18,11 +18,15 @@ class DefoultPresentSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'Ռաֆայել Համբարյան',
-            'email' => 'raforafo1996@mail.ru',
-            'password' => Hash::make('11111111')
-        ]);
+        $user = User::where('email', 'raforafo1996@mail.ru')->first();
+        if (!$user instanceof User) {
+            $user = User::create([
+                'name' => 'Ռաֆայել Համբարյան',
+                'email' => 'raforafo1996@mail.ru',
+                'password' => Hash::make('11111111')
+            ]);
+        }
+
         $user_id = $user->id;
         $present = new Present();
         $present->name = 'MySql';
@@ -70,7 +74,7 @@ class DefoultPresentSeeder extends Seeder
                 'Նկարագրություն (client server):',
                 'Ինչու MySQL:'
             ]),
-            'content_type' => 'text',
+            'content_type_id' => 1,
             'subheading_id' => $subheading_1->id,
             'present_id' => $present_id
         ]);
@@ -82,58 +86,36 @@ class DefoultPresentSeeder extends Seeder
             'background' => '#00BFFF',
             'text_header' => 'Ինչ է MySQL- ը',
         ]);
+
+
         $subheading_content_2 = \App\Models\ContentSubheading::create([
 
             'content' => json_encode([
                 'MySQL- ն այդպիսի բաց կոդով տվյալների հիման վրա տվյալների բազաների կառավարման համակարգ է: Ծրագիրը, որը սահմանում է, ստեղծում և շահարկում է տվյալների բազան, հայտնի է որպես տվյալների բազայի կառավարման համակարգ: Ծրագրավորողը կարող է օգտագործել SQL հարցումները MySQL- ում `տվյալների պահեստավորման և որոնման համար: Այն ապահովում է տվյալների կառավարում, տվյալների միգրացիա և տվյալների պաշտպանություն:',
                 'MySQL- ը տրամադրում է NET պլատֆորմին, C ++, Python- ին, Java- ին ՝ տվյալների բազայի ծրագրեր կառուցելու համար:',
             ]),
-            'content_type' => 'text',
+            'content_type_id' => 1,
             'subheading_id' => $subheading_2->id,
             'present_id' => $present_id
         ]);
 
-//        TextSlider::create([
-//            'user_id' => $user_id,
-//            'present_id' => $present_id,
-//            'main_slider_id' => $main_slider_id,
-//            'background' => '#00BFFF',
-//            'text_header' => 'Ընդհանուր նկարագրություն',
-//            'text_content' => json_encode([
-//                'Ինչ է MySQL- ը:',
-//                'Պատմություն:',
-//                'Օգտագործում է:',
-//                'Շարահյուսություն (Syntax)',
-//                'Նկարագրություն (client server):',
-//                'Ինչու MySQL:'
-//            ])
-//        ]);
-//        TextSlider::create([
-//            'user_id' => $user_id,
-//            'present_id' => $present_id,
-//            'main_slider_id' => $main_slider_id,
-//            'background' => '#00BFFF',
-//            'text_header' => 'Ինչ է MySQL- ը:',
-//            'text_content' => json_encode([
-//                'MySQL- ն այդպիսի բաց կոդով տվյալների հիման վրա տվյալների բազաների կառավարման համակարգ է: Ծրագիրը, որը սահմանում է, ստեղծում և շահարկում է տվյալների բազան, հայտնի է որպես տվյալների բազայի կառավարման համակարգ: Ծրագրավորողը կարող է օգտագործել SQL հարցումները MySQL- ում `տվյալների պահեստավորման և որոնման համար: Այն ապահովում է տվյալների կառավարում, տվյալների միգրացիա և տվյալների պաշտպանություն:',
-//                'MySQL- ը տրամադրում է NET պլատֆորմին, C ++, Python- ին, Java- ին ՝ տվյալների բազայի ծրագրեր կառուցելու համար:',
-//            ])
-//        ]);
-//        TextSlider::create([
-//            'user_id' => $user_id,
-//            'present_id' => $present_id,
-//            'main_slider_id' => $main_slider_id,
-//            'background' => '#00BFFF',
-//            'text_header' => 'Ընդհանուր նկարագրություն',
-//            'text_content' => json_encode([
-//                'Ինչ է MySQL- ը:',
-//                'Պատմություն:',
-//                'Օգտագործում է:',
-//                'Շարահյուսություն (Syntax)',
-//                'Նկարագրություն (client server):',
-//                'Ինչու MySQL:'
-//            ])
-//        ]);
+        $subheading_3 = Subheading::create([
+            'present_id' => $present_id,
+            'main_slide_id' => $main_slider_id,
+            'background' => '#00BFFF',
+            'text_header' => 'Պատմություն',
+        ]);
+
+        $subheading_content_3 = \App\Models\ContentSubheading::create([
+            'content' => json_encode([
+                'Microsoft-ը, Sybase-ը և Ashton-Tate-ը ի սկզբանե միավորվեցին՝ մի ծրագրի ստեղծման և շուկա բացթողնման համար, որը ստացավ SQL Server 1.0 OS/2 -ի համար անվանումը (1989 թ.), որը փաստացի համարժեքն էր Sybase SQL Server 3.0 Unix, VMS-ի և այլնի համար։',
+                'Microsoft SQL Server 6.0-ը առաջին SQL Server-ի տարբերակն էր, որը ստեղծված էր բացառապես Windows NT-ի ճարտարապետության համար և առանց մշակման գործընթացում Sybase-ի մասնակցության։',
+
+            ]),
+            'content_type_id' => 1,
+            'subheading_id' => $subheading_3->id,
+            'present_id' => $present_id
+        ]);
 
 
         \App\Models\Order::create([
@@ -147,6 +129,12 @@ class DefoultPresentSeeder extends Seeder
             'present_id' => $present_id,
             'subheading_id' => $subheading_2->id,
             'order' => $subheading_2->id
+        ]);
+        \App\Models\Order::create([
+            'user_id' => $user_id,
+            'present_id' => $present_id,
+            'subheading_id' => $subheading_3->id,
+            'order' => $subheading_3->id
         ]);
 
     }
