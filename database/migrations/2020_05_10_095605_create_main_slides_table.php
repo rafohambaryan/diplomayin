@@ -20,13 +20,11 @@ class CreateMainSlidesTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
+                ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('present_id')
                 ->references('id')
                 ->on('presents')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
+                ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('logo');
             $table->string('logo_url');
             $table->string('present_logo');

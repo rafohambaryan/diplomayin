@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Present;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,15 @@ class HomeController extends Controller
         if (!$present || !Auth::check()) {
             return redirect()->to('/');
         }
-        return view('pages.present', ['mainSlide' => $present->mainSlide]);
+        $order = Order::where('present_id', $present->id)->orderBy('order', 'ASC')->get();
+        foreach ($order as  $item) {
+            if (!empty(current($item->subheadings->many))){
+                foreach ($item->subheadings->many as $many) {
+                    dump(json_decode($many->content->content));
+                }
+            }
+        }
+
+//        return view('pages.present', ['mainSlide' => $present->mainSlide]);
     }
 }

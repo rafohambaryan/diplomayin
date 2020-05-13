@@ -17,130 +17,59 @@
                 <p><strong>Ղեկավար՝</strong> {{$mainSlide->head}}</p>
             </div>
         </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
-
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ինչ է MySQL- ը:</span>
-                    <ul>
-                        <li><p>MySQL- ն այդպիսի բաց կոդով տվյալների հիման վրա տվյալների բազաների կառավարման համակարգ է:
-                                Ծրագիրը, որը սահմանում է, ստեղծում և շահարկում է տվյալների բազան, հայտնի է որպես
-                                տվյալների բազայի կառավարման համակարգ: Ծրագրավորողը կարող է օգտագործել SQL հարցումները
-                                MySQL- ում `տվյալների պահեստավորման և որոնման համար: Այն ապահովում է տվյալների
-                                կառավարում, տվյալների միգրացիա և տվյալների պաշտպանություն:</p></li>
-                        <li>
-                            <p>
-                                MySQL- ը տրամադրում է NET պլատֆորմին, C ++, Python- ին,
-                                Java- ին ՝ տվյալների բազայի ծրագրեր կառուցելու համար:
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section class="vertical-scrolling">
-            <div class="presentacion-contents">
-                <div class="costume-size">
-                    <span>Ընդհանուր նկարագրություն</span>
-                    <ul>
-                        <li><p>Ինչ է MySQL- ը:</p></li>
-                        <li><p>Պատմություն:</p></li>
-                        <li><p>Օգտագործում է:</p></li>
-                        <li><p>Շարահյուսություն (Syntax)</p></li>
-                        <li><p>Նկարագրություն (client server):</p></li>
-                        <li><p>Ինչու MySQL:</p></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        @foreach($orders as $item)
+            <section class="vertical-scrolling">
+                @if (!empty(current($item->subheadings->many)))
+                    <div class="horizontal-scrolling">
+                        <div class="costume-size">
+                            <span>{{$item->subheadings->text_header}}</span>
+                            <ul>
+                                @foreach(json_decode($item->subheadings->content->content) as $content)
+                                    <li><p>{{$content}}</p></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @foreach($item->subheadings->many as $many)
+                        <div class="horizontal-scrolling">
+                            <div class="costume-size">
+                                <span>{{$many->text_header}}</span>
+                                <ul>
+                                    @foreach(json_decode($many->content->content) as $content_man)
+                                        <li><p>{{$content_man}}</p></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="presentacion-contents">
+                        <div class="costume-size">
+                            <span>{{$item->subheadings->text_header}}</span>
+                            <ul>
+                                @foreach(json_decode($item->subheadings->content->content) as $content)
+                                    <li><p>{{$content}}</p></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </section>
+        @endforeach
     </div>
 @endsection
 @push('script')
     <script>
         $(document).ready(function () {
-// fullpage customization
+
+
             $('#fullpage').fullpage({
                 sectionsColor: ['{{$mainSlide->background}}', '#146fb3', '#567df2', '#5C832F', '#B8B89F', '#1572b8', '#1572b8', '#1572b8'],
                 sectionSelector: '.vertical-scrolling',
-                // slideSelector: '.horizontal-scrolling',
+                slideSelector: '.horizontal-scrolling',
                 navigation: true,
-                // slidesNavigation: true,
+                slidesNavigation: true,
                 controlArrows: false,
                 afterSlideLoad: function (anchorLink, index, slideAnchor, slideIndex) {
                     if (anchorLink == 'fifthSection' && slideIndex == 1) {
@@ -164,6 +93,7 @@
                     }
                 }
             });
+
         });
 
     </script>

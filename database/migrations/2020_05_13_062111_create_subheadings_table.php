@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTextSlidersTable extends Migration
+class CreateSubheadingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,30 +13,26 @@ class CreateTextSlidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('text_sliders', function (Blueprint $table) {
+        Schema::create('subheadings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('present_id');
-            $table->unsignedBigInteger('main_slider_id');
+            $table->unsignedBigInteger('main_slide_id');
+            $table->string('text_header');
+
+
             $table->string('background', 30)->index();
             $table->foreign('background')
                 ->references('code')
                 ->on('colors')
                 ->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('main_slider_id')
-                ->references('id')
-                ->on('main_slides')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('present_id')
                 ->references('id')
                 ->on('presents')
                 ->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->string('text_header');
-            $table->json('text_content');
+            $table->foreign('main_slide_id')
+                ->references('id')
+                ->on('main_slides')
+                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -48,6 +44,6 @@ class CreateTextSlidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('text_sliders');
+        Schema::dropIfExists('subheadings');
     }
 }

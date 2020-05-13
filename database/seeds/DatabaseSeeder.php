@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        DB::unprepared(File::get(base_path() . '/database/seeds/dumps/colors.sql'));
+        DB::unprepared(File::get(base_path() . '/database/seeds/dumps/colors.sql'));
 
         $this->call(DefoultPresentSeeder::class);
     }

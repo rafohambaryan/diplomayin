@@ -4,11 +4,10 @@ use App\Models\MainSlide;
 use App\Models\Present;
 use Illuminate\Database\Seeder;
 use App\User;
-use App\Models\TextSlider;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\Subheading;
 
 class DefoultPresentSeeder extends Seeder
 {
@@ -54,46 +53,100 @@ class DefoultPresentSeeder extends Seeder
             'background' => '#00BFFF',
         ]);
         $main_slider_id = $main_Slides->id;
-        TextSlider::create([
-            'user_id' => $user_id,
+
+        $subheading_1 = Subheading::create([
             'present_id' => $present_id,
-            'main_slider_id' => $main_slider_id,
+            'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
             'text_header' => 'Ընդհանուր նկարագրություն',
-            'text_content' => json_encode([
+        ]);
+
+        $subheading_content_1 = \App\Models\ContentSubheading::create([
+            'content' => json_encode([
                 'Ինչ է MySQL- ը:',
                 'Պատմություն:',
                 'Օգտագործում է:',
                 'Շարահյուսություն (Syntax)',
                 'Նկարագրություն (client server):',
                 'Ինչու MySQL:'
-            ])
+            ]),
+            'content_type' => 'text',
+            'subheading_id' => $subheading_1->id,
+            'present_id' => $present_id
         ]);
-        TextSlider::create([
-            'user_id' => $user_id,
+
+
+        $subheading_2 = Subheading::create([
             'present_id' => $present_id,
-            'main_slider_id' => $main_slider_id,
+            'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
-            'text_header' => 'Ինչ է MySQL- ը:',
-            'text_content' => json_encode([
+            'text_header' => 'Ինչ է MySQL- ը',
+        ]);
+        $subheading_content_2 = \App\Models\ContentSubheading::create([
+
+            'content' => json_encode([
                 'MySQL- ն այդպիսի բաց կոդով տվյալների հիման վրա տվյալների բազաների կառավարման համակարգ է: Ծրագիրը, որը սահմանում է, ստեղծում և շահարկում է տվյալների բազան, հայտնի է որպես տվյալների բազայի կառավարման համակարգ: Ծրագրավորողը կարող է օգտագործել SQL հարցումները MySQL- ում `տվյալների պահեստավորման և որոնման համար: Այն ապահովում է տվյալների կառավարում, տվյալների միգրացիա և տվյալների պաշտպանություն:',
                 'MySQL- ը տրամադրում է NET պլատֆորմին, C ++, Python- ին, Java- ին ՝ տվյալների բազայի ծրագրեր կառուցելու համար:',
-            ])
+            ]),
+            'content_type' => 'text',
+            'subheading_id' => $subheading_2->id,
+            'present_id' => $present_id
         ]);
-        TextSlider::create([
+
+//        TextSlider::create([
+//            'user_id' => $user_id,
+//            'present_id' => $present_id,
+//            'main_slider_id' => $main_slider_id,
+//            'background' => '#00BFFF',
+//            'text_header' => 'Ընդհանուր նկարագրություն',
+//            'text_content' => json_encode([
+//                'Ինչ է MySQL- ը:',
+//                'Պատմություն:',
+//                'Օգտագործում է:',
+//                'Շարահյուսություն (Syntax)',
+//                'Նկարագրություն (client server):',
+//                'Ինչու MySQL:'
+//            ])
+//        ]);
+//        TextSlider::create([
+//            'user_id' => $user_id,
+//            'present_id' => $present_id,
+//            'main_slider_id' => $main_slider_id,
+//            'background' => '#00BFFF',
+//            'text_header' => 'Ինչ է MySQL- ը:',
+//            'text_content' => json_encode([
+//                'MySQL- ն այդպիսի բաց կոդով տվյալների հիման վրա տվյալների բազաների կառավարման համակարգ է: Ծրագիրը, որը սահմանում է, ստեղծում և շահարկում է տվյալների բազան, հայտնի է որպես տվյալների բազայի կառավարման համակարգ: Ծրագրավորողը կարող է օգտագործել SQL հարցումները MySQL- ում `տվյալների պահեստավորման և որոնման համար: Այն ապահովում է տվյալների կառավարում, տվյալների միգրացիա և տվյալների պաշտպանություն:',
+//                'MySQL- ը տրամադրում է NET պլատֆորմին, C ++, Python- ին, Java- ին ՝ տվյալների բազայի ծրագրեր կառուցելու համար:',
+//            ])
+//        ]);
+//        TextSlider::create([
+//            'user_id' => $user_id,
+//            'present_id' => $present_id,
+//            'main_slider_id' => $main_slider_id,
+//            'background' => '#00BFFF',
+//            'text_header' => 'Ընդհանուր նկարագրություն',
+//            'text_content' => json_encode([
+//                'Ինչ է MySQL- ը:',
+//                'Պատմություն:',
+//                'Օգտագործում է:',
+//                'Շարահյուսություն (Syntax)',
+//                'Նկարագրություն (client server):',
+//                'Ինչու MySQL:'
+//            ])
+//        ]);
+
+
+        \App\Models\Order::create([
             'user_id' => $user_id,
             'present_id' => $present_id,
-            'main_slider_id' => $main_slider_id,
-            'background' => '#00BFFF',
-            'text_header' => 'Ընդհանուր նկարագրություն',
-            'text_content' => json_encode([
-                'Ինչ է MySQL- ը:',
-                'Պատմություն:',
-                'Օգտագործում է:',
-                'Շարահյուսություն (Syntax)',
-                'Նկարագրություն (client server):',
-                'Ինչու MySQL:'
-            ])
+            'subheading_id' => $subheading_1->id,
+            'order' => $subheading_1->id
+        ]);
+        \App\Models\Order::create([
+            'user_id' => $user_id,
+            'present_id' => $present_id,
+            'subheading_id' => $subheading_2->id,
+            'order' => $subheading_2->id
         ]);
 
     }
