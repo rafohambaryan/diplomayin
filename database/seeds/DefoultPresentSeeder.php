@@ -61,7 +61,7 @@ class DefoultPresentSeeder extends Seeder
         $subheading_1 = Subheading::create([
             'present_id' => $present_id,
             'main_slide_id' => $main_slider_id,
-            'background' => '#00BFFF',
+            'background' => '#00DED1',
             'text_header' => 'Ընդհանուր նկարագրություն',
         ]);
 
@@ -83,7 +83,7 @@ class DefoultPresentSeeder extends Seeder
         $subheading_2 = Subheading::create([
             'present_id' => $present_id,
             'main_slide_id' => $main_slider_id,
-            'background' => '#00BFFF',
+            'background' => '#5F9EA0',
             'text_header' => 'Ինչ է MySQL- ը',
         ]);
 

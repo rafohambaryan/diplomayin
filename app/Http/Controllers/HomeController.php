@@ -26,9 +26,10 @@ class HomeController extends Controller
         if (!$present || !Auth::check()) {
             return redirect()->to('/');
         }
+        dd($present->mainSlide->background);
         $order = Order::where('present_id', $present->id)->orderBy('order', 'ASC')->get();
         foreach ($order as  $item) {
-            dump($item->subheadings->content->contentType->type);
+            dump($item->subheadings->background);
         }
 
 //        return view('pages.present', ['mainSlide' => $present->mainSlide]);

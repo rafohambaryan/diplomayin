@@ -17,6 +17,6 @@ class Subheading extends Model
 
     public function many()
     {
-        return $this->hasMany(SubheadingMany::class,'subheading_id','id');
+        return $this->hasMany(SubheadingMany::class, 'subheading_id', 'id');
     }
 }

@@ -1,5 +1,31 @@
 $(document).ready(function () {
-    setTimeout(function () {
+    let token = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+    fetch(window.location.origin + '/colors/' + token, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+        },
+        method: 'POST'
+    }).then(response => {
+        return response.json();
+    }).then(res => {
+        $('#fullpage').fullpage({
+            sectionsColor: res,
+            sectionSelector: '.vertical-scrolling',
+            slideSelector: '.horizontal-scrolling',
+            navigation: true,
+            slidesNavigation: true,
+            controlArrows: false,
+        });
+
+        $('.app-main-content').removeClass('d-none');
         $('.loading-append-js').removeClass('loader').addClass('d-none');
-    }, 1500);
+    }).catch(error => {
+        console.error(error)
+        // setTimeout(function () {
+        //     window.location.reload();
+        // }, 1500)
+    });
 });

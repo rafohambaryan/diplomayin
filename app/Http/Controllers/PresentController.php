@@ -2,19 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-use App\Models\Present;
+use App\Repository\front\PresentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class PresentController extends Controller
 {
+    private $present;
+
+    /**
+     * PresentController constructor.
+     * @param PresentRepository $present
+     */
+    public function __construct(PresentRepository $present)
+    {
+        $url = explode('/', URL::current());
+        $this->middleware("present:" . end($url));
+        $this->present = $present;
+    }
+
+    /**
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($token)
     {
-        $present = Present::where('url', $token)->first();
-        if (!$present) {
-            return redirect()->to('/');
-        }
-        $orders = Order::where('present_id', $present->id)->orderBy('order', 'ASC')->get();
-        return view('front.pages.index', ['mainSlide' => $present->mainSlide, 'orders' => $orders]);
+        return $this->present->index($token);
+    }
+
+    /**
+     * @param $token
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function colors($token)
+    {
+        return $this->present->colors($token);
     }
 }

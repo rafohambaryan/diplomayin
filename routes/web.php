@@ -10,10 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'MainController@index');
 Route::post('/create-present', 'MainController@createPresent');
 Route::post('/create-present/{id}', 'MainController@createPresent');
 Route::get('/present/{token}', 'PresentController@index');
+Route::post('/colors/{token}', 'PresentController@colors');
 Route::get('/migrated', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
