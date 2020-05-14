@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Դիպլոմային աշխատանք</title>
+    <title>@stack('title', __('front.title'))</title>
     <meta name="author" content="Alvaro Trigo Lopez"/>
     <meta name="description" content="fullPage fixed full-screen backgrounds."/>
     <meta name="keywords" content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen"/>
@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/css/fullpage.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/examples.css')}}"/>
     <link rel="stylesheet" href="{{asset('/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/media.css')}}">
 </head>
 <body>
 <div class="loading-append-js loader">

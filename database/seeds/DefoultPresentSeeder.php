@@ -118,6 +118,25 @@ class DefoultPresentSeeder extends Seeder
         ]);
 
 
+        $subheading_4 = Subheading::create([
+            'present_id' => $present_id,
+            'main_slide_id' => $main_slider_id,
+            'background' => '#00BFFF',
+            'text_header' => 'Շարահյուսություն (Syntax)',
+        ]);
+
+        $subheading_content_4 = \App\Models\ContentSubheading::create([
+            'content' => json_encode([
+                'Microsoft-ը, Sybase-ը և Ashton-Tate-ը ի սկզբանե միավորվեցին՝ մի ծրագրի ստեղծման և շուկա բացթողնման համար, որը ստացավ SQL Server 1.0 OS/2 -ի համար անվանումը (1989 թ.), որը փաստացի համարժեքն էր Sybase SQL Server 3.0 Unix, VMS-ի և այլնի համար։',
+                'Microsoft SQL Server 6.0-ը առաջին SQL Server-ի տարբերակն էր, որը ստեղծված էր բացառապես Windows NT-ի ճարտարապետության համար և առանց մշակման գործընթացում Sybase-ի մասնակցության։',
+
+            ]),
+            'content_type_id' => 1,
+            'subheading_id' => $subheading_4->id,
+            'present_id' => $present_id
+        ]);
+
+
         \App\Models\Order::create([
             'user_id' => $user_id,
             'present_id' => $present_id,

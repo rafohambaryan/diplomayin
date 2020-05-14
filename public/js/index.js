@@ -9,8 +9,11 @@ $(document).ready(function () {
         },
         method: 'POST'
     }).then(response => {
+        if (response.status !== 200) {
+            return window.location.reload();
+        }
         return response.json();
-    }).then(res => {
+    }).then((res) => {
         $('#fullpage').fullpage({
             sectionsColor: res,
             sectionSelector: '.vertical-scrolling',
@@ -23,9 +26,9 @@ $(document).ready(function () {
         $('.app-main-content').removeClass('d-none');
         $('.loading-append-js').removeClass('loader').addClass('d-none');
     }).catch(error => {
-        console.error(error)
-        // setTimeout(function () {
-        //     window.location.reload();
-        // }, 1500)
+        console.error(error);
+        setTimeout(function () {
+            window.location.href = window.location.origin;
+        }, 1500)
     });
 });

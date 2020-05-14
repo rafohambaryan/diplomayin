@@ -1,0 +1,12 @@
+@media (max-width: 1290px) {
+    .mysql-logo-all-page img {
+        width: 450px;
+    }
+
+}
+
+@media (max-width: 960px) {
+    .mysql-logo-all-page img {
+        width: 350px;
+    }
+}
