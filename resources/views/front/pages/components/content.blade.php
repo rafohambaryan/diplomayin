@@ -10,6 +10,7 @@
             </ul>
             @break
             @case('img')
+            <img src="{{asset('/uploads/img/'.$content->img)}}" alt="">
             @break
         @endswitch
     @endif
