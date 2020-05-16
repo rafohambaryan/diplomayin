@@ -6,7 +6,7 @@ use App\Repository\front\PresentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-class PresentController extends Controller
+class PresentController extends FrontController
 {
     private $present;
 
@@ -16,6 +16,7 @@ class PresentController extends Controller
      */
     public function __construct(PresentRepository $present)
     {
+        parent::__construct();
         $url = explode('/', URL::current());
         $this->middleware("present:" . end($url));
         $this->present = $present;

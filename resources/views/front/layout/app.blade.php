@@ -9,6 +9,7 @@
     <meta name="keywords" content="fullpage,jquery,demo,screen,fixed,fullscreen,backgrounds,full-screen"/>
     <meta name="Resource-type" content="Document"/>
     <meta name="csrf_token" content="{{csrf_token()}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/css/bootstrap/bootstrap.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/fullpage.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/examples.css')}}"/>
     <link rel="stylesheet" href="{{asset('/css/style.css')}}">

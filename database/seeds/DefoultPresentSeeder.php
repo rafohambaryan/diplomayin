@@ -12,6 +12,7 @@ use App\Models\Subheading;
 use App\Models\Order;
 use App\Models\ContentSubheading;
 use App\Models\SubheadingMany;
+use App\Helpers\UniqueHash;
 
 class DefoultPresentSeeder extends Seeder
 {
@@ -56,10 +57,7 @@ class DefoultPresentSeeder extends Seeder
         $present->name = 'MySql';
         $present->user_id = $this->user_id;
 
-        do {
-            $url = Str::random(32);
-            $present->url = $url;
-        } while (Present::where("url", "=", $url)->first() instanceof Present);
+        $present->url = UniqueHash::hash(Present::class, 'url', 33);
         $present->save();
         $this->present_id = $present->id;
 
@@ -82,6 +80,7 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#00DED1',
             'text_header' => 'Ընդհանուր նկարագրություն',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_1 = ContentSubheading::create([
@@ -104,6 +103,7 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#5F9EA0',
             'text_header' => 'Ինչ է MySQL- ը',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
 
@@ -123,6 +123,7 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
             'text_header' => 'Պատմություն',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_3 = ContentSubheading::create([
@@ -142,6 +143,7 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
             'text_header' => 'Օգտագործում է:',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_4 = ContentSubheading::create([
@@ -161,6 +163,7 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#1E90FF',
             'text_header' => 'Օրինակ՝',
+            'section_id' => UniqueHash::hash(SubheadingMany::class, 'section_id', 30),
         ]);
         $subheading_content_4_1 = ContentSubheadingMany::create([
             'img' => $this->imageCopy('/images/design-site.png', '/uploads/img/'),
@@ -176,12 +179,13 @@ class DefoultPresentSeeder extends Seeder
             'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
             'text_header' => 'Շարահյուսություն (Syntax)',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_5 = ContentSubheading::create([
             'content' => json_encode([
-               'Հիմնականում տվյալների բազաների Շարահյուսությունը նման են:',
-               'Օրինակ PostgreSQL և MySql բազաներում Շարահյուսությունը նույնն է միայն PostgreSQL-ում աղյուսակները 2 տիպի են լինում public և private իսկ MySql-ում բոլորը public տիպի են',
+                'Հիմնականում տվյալների բազաների Շարահյուսությունը նման են:',
+                'Օրինակ PostgreSQL և MySql բազաներում Շարահյուսությունը նույնն է միայն PostgreSQL-ում աղյուսակները 2 տիպի են լինում public և private իսկ MySql-ում բոլորը public տիպի են',
 
 
             ]),

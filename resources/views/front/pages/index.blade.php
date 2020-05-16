@@ -4,7 +4,7 @@
         <img src="{{asset('/uploads/present_logo/'.$mainSlide->present_logo)}}" alt="present main logo">
     </div>
     <div id="fullpage">
-        <section class="vertical-scrolling main-section">
+        <section class="vertical-scrolling main-section" id="{{$mainSlide->present->url}}">
             <div class="haph-logo">
                 <a href="{{$mainSlide->logo_url}}" target="_blank"><img
                         src="{{asset('/uploads/logo/'.$mainSlide->logo)}}"
@@ -19,7 +19,7 @@
         </section>
 
         @foreach($orders as $item)
-            <section class="vertical-scrolling">
+            <section class="vertical-scrolling" id="{{$item->subheadings->section_id}}">
                 @if (!empty(current($item->subheadings->many)))
                     <div class="horizontal-scrolling">
                         @include('front.pages.components.content',[
@@ -28,7 +28,7 @@
                                   ])
                     </div>
                     @foreach($item->subheadings->many as $many)
-                        <div class="horizontal-scrolling">
+                        <div class="horizontal-scrolling" id="{{$many->section_id}}">
                             @include('front.pages.components.content',[
                                       'header' =>$many->text_header,
                                       'content' => $many->content

@@ -233,10 +233,13 @@ h3 {
 .costume-size li p{
     margin-top: 10px;
 }
+.margin-bottom-25{
+    margin-bottom: 25px!important;
+}
 .costume-size span{
     color: white;
     border-bottom: 2px solid #ffffff;
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
     padding-bottom: 10px;
     font-size: 35px;
 }

@@ -34,3 +34,7 @@ Route::get('/migrated', function () {
 Auth::routes();
 
 Route::get('/setting/{token}', 'HomeController@index');
+
+Route::any('{error}', function ($page) {
+    abort(404);
+});

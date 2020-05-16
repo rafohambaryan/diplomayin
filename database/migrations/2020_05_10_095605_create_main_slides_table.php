@@ -17,6 +17,11 @@ class CreateMainSlidesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('present_id');
+            $table->string('color', 30)->index()->default('#FFFFFF');
+            $table->foreign('color')
+                ->references('code')
+                ->on('colors')
+                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

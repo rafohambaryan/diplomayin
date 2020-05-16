@@ -5,21 +5,13 @@ namespace App\Repository\front;
 
 use App\Services\front\PresentService;
 
-class PresentRepository
+class PresentRepository extends PresentService
 {
-    /**
-     * @var PresentService
-     */
-    private $service;
 
     /**
      * PresentRepository constructor.
      * @param PresentService $service
      */
-    public function __construct(PresentService $service)
-    {
-        $this->service = $service;
-    }
 
     /**
      * @param $token
@@ -27,8 +19,8 @@ class PresentRepository
      */
     public function index($token)
     {
-        $present = $this->service->getPresent($token);
-        $orders = $this->service->getOrders($present->id);
+        $present = $this->getPresent($token);
+        $orders = $this->getOrders($present->id);
         return view('front.pages.index', ['mainSlide' => $present->mainSlide, 'orders' => $orders]);
     }
 
@@ -38,13 +30,20 @@ class PresentRepository
      */
     public function colors($token)
     {
-        $colors = [];
-        $present = $this->service->getPresent($token);
-        $orders = $this->service->getOrders($present->id);
-        array_push($colors, $present->mainSlide->background);
+        $options = [];
+        $present = $this->getPresent($token);
+        $orders = $this->getOrders($present->id);
+        $mainSlide['background'] = $present->mainSlide->background;
+        $mainSlide['color'] = $present->mainSlide->color;
+        $mainSlide['section_id'] = $present->url;
         foreach ($orders as $index => $order) {
-            array_push($colors, $order->subheadings->background);
+            if (!empty($order->subheadings->many)) {
+                foreach ($order->subheadings->many as $many) {
+                    array_push($options, ['section_id' => $many->section_id, 'background' => $many->background, 'color' => $many->color]);
+                }
+            }
+            array_push($options, ['section_id' => $order->subheadings->section_id, 'background' => $order->subheadings->background, 'color' => $order->subheadings->color]);
         }
-        return response()->json($colors, 200);
+        return response()->json(['success' => true, 'main' => $mainSlide, 'options' => $options], 200);
     }
 }
