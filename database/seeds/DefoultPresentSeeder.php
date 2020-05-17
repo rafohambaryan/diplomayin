@@ -13,18 +13,12 @@ use App\Models\Order;
 use App\Models\ContentSubheading;
 use App\Models\SubheadingMany;
 use App\Helpers\UniqueHash;
+use App\Helpers\Copy;
 
 class DefoultPresentSeeder extends Seeder
 {
     private $user_id;
     private $present_id;
-
-    private function imageCopy($go, $to, $ext = 'png')
-    {
-        $path = Str::random(5) . time() . '.' . $ext;
-        File::copy(public_path($go), public_path($to . $path));
-        return $path;
-    }
 
     private function setOrder($subheading_id)
     {
@@ -64,11 +58,11 @@ class DefoultPresentSeeder extends Seeder
         $main_Slides = MainSlide::create([
             'user_id' => $this->user_id,
             'present_id' => $this->present_id,
-            'logo' => $this->imageCopy('/images/logo.png', '/uploads/logo/'),
+            'logo' => Copy::file('/images/logo.png', '/uploads/logo/'),
             'logo_url' => 'http://npuagb.am/hy/',
-            'present_logo' => $this->imageCopy('/images/mysql-logo.png', '/uploads/present_logo/'),
+            'present_logo' => Copy::file('/images/mysql-logo.png', '/uploads/present_logo/'),
             'main_name' => 'Դիպլոմային աշխատանք',
-            'topic' => '<< Տվյալների բազայի նախագծում և ծրագրավորում օգտագործելով MySQL >>',
+            'topic' => 'Տվյալների բազայի նախագծում և ծրագրավորում օգտագործելով MySQL',
             'student' => 'Ռաֆայել Համբարյան',
             'head' => 'Արտակ Չախոյան',
             'background' => '#00BFFF',
@@ -166,7 +160,7 @@ class DefoultPresentSeeder extends Seeder
             'section_id' => UniqueHash::hash(SubheadingMany::class, 'section_id', 30),
         ]);
         $subheading_content_4_1 = ContentSubheadingMany::create([
-            'img' => $this->imageCopy('/images/design-site.png', '/uploads/img/'),
+            'img' => Copy::file('/images/design-site.png', '/uploads/img/'),
             'content_type_id' => 2,
             'subheading_many_id' => $subheading_4_1->id,
             'present_id' => $this->present_id

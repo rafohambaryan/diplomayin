@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'MainController@index');
-Route::post('/create-present', 'MainController@createPresent');
-Route::post('/create-present/{id}', 'MainController@createPresent');
+Auth::routes([
+    'reset' => false,
+    'verify' => false,
+]);
+//Route::get('/', 'MainController@index');
+//Route::post('/create-present', 'MainController@createPresent');
+
 Route::get('/present/{token}', 'PresentController@index');
 Route::post('/colors/{token}', 'PresentController@colors');
 Route::get('/migrated', function () {
@@ -30,10 +34,14 @@ Route::get('/migrated', function () {
 
 });
 
-
-Auth::routes();
-
-Route::get('/setting/{token}', 'HomeController@index');
+Route::get('/', 'Backend\AuthController@index');
+Route::group(['namespace' => 'Backend', 'middleware' => 'auth'], function () {
+    Route::delete('/', 'AuthController@delete');
+    Route::post('/create-present', 'AuthController@create');
+    Route::put('/create-present/{id}', 'AuthController@create');
+    Route::get('/setting/{id}', 'AuthController@get');
+    Route::post('/setting/update', 'MainSlideController@update');
+});
 
 Route::any('{error}', function ($page) {
     abort(404);

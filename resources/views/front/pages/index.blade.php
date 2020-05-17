@@ -1,4 +1,5 @@
 @extends('front.layout.app')
+@push('title',$mainSlide->present->name)
 @section('content')
     <div class="mysql-logo-all-page">
         <img src="{{asset('/uploads/present_logo/'.$mainSlide->present_logo)}}" alt="present main logo">
@@ -12,7 +13,7 @@
             </div>
             <h2 class="ml-main-text">{{$mainSlide->main_name}}</h2>
             <div class="content-main-slider">
-                <p><strong>@lang('front.topic')</strong> {{$mainSlide->topic}}</p>
+                <p><strong>@lang('front.topic')</strong><< {{$mainSlide->topic}} >></p>
                 <p><strong>@lang('front.student')</strong> {{$mainSlide->student}}</p>
                 <p><strong>@lang('front.head')</strong> {{$mainSlide->head}}</p>
             </div>

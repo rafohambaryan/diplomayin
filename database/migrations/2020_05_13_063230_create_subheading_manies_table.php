@@ -15,15 +15,13 @@ class CreateSubheadingManiesTable extends Migration
     {
         Schema::create('subheading_manies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('color', 30)->index()->default('#FFFFFF');
             $table->unsignedBigInteger('subheading_id');
             $table->unsignedBigInteger('present_id');
             $table->unsignedBigInteger('main_slide_id');
             $table->string('text_header');
-
             $table->string('section_id')->unique();
-
             $table->string('background', 30)->index();
-            $table->string('color', 30)->index()->default('#FFFFFF');
             $table->foreign('color')
                 ->references('code')
                 ->on('colors')

@@ -11,12 +11,12 @@
                         <div class="col-sm-6">
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
                                     class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-                            <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
+                            <a href="#" class="btn btn-danger delete-present" data-count="all" data-toggle="modal"><i
                                     class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover table-presents">
                     <thead>
                     <tr>
                         <th>
@@ -34,25 +34,25 @@
                     </thead>
                     <tbody>
                     @foreach($presents as $present)
-                        <tr>
+                        <tr id="present_{{$present->id}}">
                             <td>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
+								<input type="checkbox" id="checkbox_{{$present->id}}" name="options[]" value="1">
+								<label for="checkbox_{{$present->id}}"></label>
 							</span>
                             </td>
-                            <td>{{$present->id}}</td>
-                            <td>{{$present->name}}</td>
+                            <td class="id-present">{{$present->id}}</td>
+                            <td class="present-name">{{$present->name}}</td>
                             <td><a href="{{url("/present/{$present->url}")}}" target="_blank"><i class="material-icons">&#xe417;</i></a>
                             </td>
-                            <td><a href="{{url("/setting/{$present->url}")}}" class="settings"><i class="material-icons"
+                            <td><a href="{{url("/setting/{$present->id}")}}" class="settings"><i class="material-icons"
                                                                                                   title="Settings">&#xe8b8;</i></a>
                             </td>
                             <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+                                <a href="" class="edit edit-present-name" data-toggle="modal"><i class="material-icons"
                                                                                                  data-toggle="tooltip"
                                                                                                  title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
+                                <a href="#" class="delete delete-present" data-count="one" data-toggle="modal"><i
                                         class="material-icons"
                                         data-toggle="tooltip"
                                         title="Delete">&#xE872;</i></a>
@@ -62,7 +62,7 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                        {{$presents->links()}}
+                    {{$presents->links()}}
                 </div>
             </div>
         </div>
@@ -86,62 +86,6 @@
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                             <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Edit Modal HTML -->
-        <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-info" value="Save">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Delete Modal HTML -->
-        <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Delete Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete these Records?</p>
-                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" value="Delete">
                         </div>
                     </form>
                 </div>

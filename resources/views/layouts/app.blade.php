@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
 
-    <title>@stack('title','Պրեզենտացիա')</title>
+    <title>@stack('title','Backend')</title>
     {{--    <script src="{{ asset('/js/app.js') }}" defer></script>--}}
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -15,10 +15,13 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css"
+          integrity="sha256-2bAj1LMT7CXUYUwuEnqqooPb1W0Sw0uKMsqNH0HwMa4=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
 
     <link rel="stylesheet" href="{{asset('/css/bootstrap/bootstrap.css')}}">
-<!-- Styles -->
+    <!-- Styles -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 </head>
@@ -55,13 +58,14 @@
                     @else
                         <li class="nav-item dropdown">
                             <div class="dropdown">
-                                <button class="costume-menu-logout dropdown-toggle" type="button" id="dropdownMenuButton"
+                                <button class="costume-menu-logout dropdown-toggle" type="button"
+                                        id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-{{--                                    <a class="dropdown-item" href="#">Action</a>--}}
-{{--                                    <a class="dropdown-item" href="#">Another action</a>--}}
+                                    {{--                                    <a class="dropdown-item" href="#">Action</a>--}}
+                                    {{--                                    <a class="dropdown-item" href="#">Another action</a>--}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -85,7 +89,9 @@
     </main>
 </div>
 <script src="{{asset('/js/jquery-3.5.1.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{asset('/js/bootstrap/bootstrap.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
 </html>
