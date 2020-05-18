@@ -76,8 +76,16 @@
             <button type="button" class="btn btn-primary save-main-slide">Save</button>
         </form>
         <hr>
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <button class="btn btn-primary">New Head Line</button>
         </div>
+        @foreach ($orders as $order)
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{$order->subheadings->text_header}}</h5>
+                    <button class="btn btn-primary">Open</button>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection

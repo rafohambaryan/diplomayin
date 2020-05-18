@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 
 use App\Models\Colors;
+use App\Repository\Backend\Interfaces\OrderRepositoryInterface;
 use App\Repository\Backend\Interfaces\PostRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -40,11 +41,12 @@ class AuthController extends Controller
         return redirect()->back();
     }
 
-    public function get($id)
+    public function get($id, OrderRepositoryInterface $order)
     {
         $present = $this->repository->get($id);
+        $orders = $order->get($id, 'ASC');
         if ($present)
-            return view('pages.present', ['present' => $present, 'colors' => Colors::all()]);
+            return view('pages.present', ['present' => $present, 'colors' => Colors::all(), 'orders' => $orders]);
         return redirect()->to('/');
     }
 }

@@ -21,6 +21,10 @@ class BackendServiceProvider extends ServiceProvider
             "App\Repository\Backend\Interfaces\MainSlideRepositoryInterface",
             "App\Repository\Backend\MainSlideRepository"
         );
+        $this->app->bind(
+            "App\Repository\Backend\Interfaces\OrderRepositoryInterface",
+            "App\Repository\Backend\OrderRepository"
+        );
     }
 
     /**
