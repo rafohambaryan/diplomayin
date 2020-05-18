@@ -79,13 +79,20 @@
         <div class="col-12 mb-4">
             <button class="btn btn-primary">New Head Line</button>
         </div>
-        @foreach ($orders as $order)
-            <div class="card mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{$order->subheadings->text_header}}</h5>
-                    <button class="btn btn-primary">Open</button>
+        <div class="sortable">
+            @foreach ($orders as $order)
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$order->subheadings->text_header}}</h5>
+                        <a class="update-head-line"><i class="fa fa-edit fa-2x"></i></a>
+                        @if (!empty(current($order->subheadings->many)))
+                            <a href="{{url("/setting/{$present->id}/{$order->subheadings->id}")}}" class="ml-4"><i
+                                    class="fa fa-copy fa-2x">{{count(current($order->subheadings->many))}}</i></a>
+                        @endif
+                        <a class="ml-4 icon-delete"><i class="fa fa-trash fa-2x"></i></a>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection

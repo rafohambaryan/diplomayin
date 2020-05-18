@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth'], function () {
     Route::post('/create-present', 'AuthController@create');
     Route::put('/create-present/{id}', 'AuthController@create');
     Route::get('/setting/{id}', 'AuthController@get');
+    Route::get('/setting/{present}/{sub}', 'SubheadingManyController@get');
     Route::post('/setting/update', 'MainSlideController@update');
 });
 

@@ -13,18 +13,15 @@ class BackendServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            "App\Repository\Backend\Interfaces\PostRepositoryInterface",
-            "App\Repository\Backend\PostRepository"
-        );
-        $this->app->bind(
-            "App\Repository\Backend\Interfaces\MainSlideRepositoryInterface",
-            "App\Repository\Backend\MainSlideRepository"
-        );
-        $this->app->bind(
-            "App\Repository\Backend\Interfaces\OrderRepositoryInterface",
-            "App\Repository\Backend\OrderRepository"
-        );
+        $models = [
+            'Post', 'MainSlide', 'Order', 'Subheading', 'SubheadingMany','Present'
+        ];
+        foreach ($models as $model) {
+            $this->app->bind(
+                "App\Repository\Backend\Interfaces\\{$model}RepositoryInterface",
+                "App\Repository\Backend\\{$model}Repository"
+            );
+        }
     }
 
     /**

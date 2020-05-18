@@ -279,3 +279,19 @@ table.table .avatar {
 .border-error {
     border: 1px solid red !important;
 }
+
+.icon-delete i {
+    color: red;
+    cursor: pointer;
+}
+
+.icon-delete i:hover {
+    color: #be0000;
+}
+.update-head-line i{
+    color: green;
+    cursor: pointer;
+}
+.update-head-line i:hover{
+    color: #006b00;
+}
