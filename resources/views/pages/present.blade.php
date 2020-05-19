@@ -2,7 +2,7 @@
 @push('title',$present->name)
 @section('content')
     <div class="container">
-        <h2><a href="{{url('/')}}"><i class="fa fa-home"></i></a> Main Slider <i>{{$present->name}}</i></h2>
+        <h2><a href="{{url('/')}}"><i class="material-icons">home</i></a> Main Slider <i>{{$present->name}}</i></h2>
         <a href="{{url("/present/{$present->url}")}}" target="_blank"><i class="material-icons">&#xe417;</i></a>
         <hr>
         <form id="main-slider-form">
@@ -84,12 +84,14 @@
                 <div class="card mt-2">
                     <div class="card-body">
                         <h5 class="card-title">{{$order->subheadings->text_header}}</h5>
-                        <a class="update-head-line"><i class="fa fa-edit fa-2x"></i></a>
+                        <a class="update-head-line"><i class="material-icons">mode_edit</i></a>
                         @if (!empty(current($order->subheadings->many)))
                             <a href="{{url("/setting/{$present->id}/{$order->subheadings->id}")}}" class="ml-4"><i
-                                    class="fa fa-copy fa-2x">{{count(current($order->subheadings->many))}}</i></a>
+                                    class="material-icons">@if(count(current($order->subheadings->many))>9) filter_9_plus @else filter_{{count(current($order->subheadings->many))}} @endif</i></a>
+                            @else
+                            <i class="material-icons ml-4">filter</i>
                         @endif
-                        <a class="ml-4 icon-delete"><i class="fa fa-trash fa-2x"></i></a>
+                        <a class="ml-4 icon-delete"><i class="material-icons">delete_forever</i></a>
                     </div>
                 </div>
             @endforeach
