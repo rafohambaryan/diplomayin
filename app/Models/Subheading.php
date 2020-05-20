@@ -19,4 +19,9 @@ class Subheading extends Model
     {
         return $this->hasMany(SubheadingMany::class, 'subheading_id', 'id');
     }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class, 'subheading_id', 'id');
+    }
 }

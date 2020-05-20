@@ -22,14 +22,14 @@ class CreateSubheadingManiesTable extends Migration
             $table->string('text_header');
             $table->string('section_id')->unique();
             $table->string('background', 30)->index();
-            $table->foreign('color')
-                ->references('code')
-                ->on('colors')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('background')
-                ->references('code')
-                ->on('colors')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
+//            $table->foreign('color')
+//                ->references('code')
+//                ->on('colors')
+//                ->onUpdate('CASCADE')->onDelete('CASCADE');
+//            $table->foreign('background')
+//                ->references('code')
+//                ->on('colors')
+//                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('present_id')
                 ->references('id')
                 ->on('presents')

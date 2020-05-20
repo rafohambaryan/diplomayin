@@ -10,8 +10,13 @@ class SubheadingServices extends Subheading
 {
     protected $table = 'subheadings';
 
-    public function get($present, $sub_id)
+    public function get($sub_id)
     {
-        return $this->where('present_id', $present->id)->get();
+        return $this->find($sub_id);
+    }
+
+    public function getUpdateCreate($sub_id, $main_slide_id)
+    {
+        return $this->firstOrNew(['id' => $sub_id, 'main_slide_id' => $main_slide_id]);
     }
 }

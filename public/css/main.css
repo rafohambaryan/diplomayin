@@ -267,7 +267,7 @@ table.table .avatar {
 }
 
 .update-main-slide-images img {
-    width: 100%;
+    max-width: 100%;
 }
 
 .update-main-slide-images label {
@@ -280,6 +280,10 @@ table.table .avatar {
     border: 1px solid red !important;
 }
 
+.update-create-present-content {
+    width: 96%;
+}
+
 .icon-delete i {
     color: red;
     cursor: pointer;
@@ -288,10 +292,50 @@ table.table .avatar {
 .icon-delete i:hover {
     color: #be0000;
 }
-.update-head-line i{
+
+.update-head-line i {
     color: green;
     cursor: pointer;
 }
-.update-head-line i:hover{
+
+.update-head-line i:hover {
     color: #006b00;
+}
+
+.delete-content-icon {
+    margin: 4px 0 4px -12px;
+    color: red;
+    cursor: pointer;
+}
+
+#main-slider-form input[type=color], .update-create-present-content input[type=color] {
+    height: 38px;
+    padding: 0;
+}
+
+.add-content-icon, .add-new-photo {
+    color: green;
+    cursor: pointer;
+}
+
+.update-create-image-content {
+    width: 100% !important;
+    border: 1px solid black;
+}
+
+.append-new-photo {
+    position: relative;
+}
+
+.delete-image-content {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 999;
+}
+
+.delete-image-content i {
+    color: red;
+    font-size: 28px;
+    cursor: pointer;
 }

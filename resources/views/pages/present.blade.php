@@ -2,6 +2,8 @@
 @push('title',$present->name)
 @section('content')
     <div class="container">
+        <input type="hidden" id="present_id" value="{{$present->id}}">
+        <input type="hidden" id="main_slide_id_id" value="{{$present->mainSlide->id}}">
         <h2><a href="{{url('/')}}"><i class="material-icons">home</i></a> Main Slider <i>{{$present->name}}</i></h2>
         <a href="{{url("/present/{$present->url}")}}" target="_blank"><i class="material-icons">&#xe417;</i></a>
         <hr>
@@ -36,27 +38,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputColor">Color</label>
-                    <select id="inputColor" class="form-control color-main-slide" name="color"
-                            style="background-color: {{$present->mainSlide->color}}">
-                        <option value="" selected disabled></option>
-                        @foreach($colors as $color)
-                            <option value="{{$color->code}}"
-                                    style="background-color: {{$color->code}}"
-                                    @if ($present->mainSlide->color === $color->code) selected @endif>{{$color->name}}</option>
-                        @endforeach
-                    </select>
+                    <input type="color" id="inputColor" class="form-control" name="color"
+                           value="{{$present->mainSlide->color}}">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputBackgroundColor">Background Color</label>
-                    <select id="inputBackgroundColor" class="form-control color-main-slide" name="background"
-                            style="background-color: {{$present->mainSlide->background}}">
-                        <option value="" selected disabled></option>
-                        @foreach($colors as $color)
-                            <option value="{{$color->code}}"
-                                    style="background-color: {{$color->code}}"
-                                    @if ($present->mainSlide->background === $color->code) selected @endif>{{$color->name}}</option>
-                        @endforeach
-                    </select>
+                    <input type="color" id="inputBackgroundColor" class="form-control" name="background"
+                           value="{{$present->mainSlide->background}}">
                 </div>
             </div>
             <div class="form-row update-main-slide-images">
@@ -77,21 +65,23 @@
         </form>
         <hr>
         <div class="col-12 mb-4">
-            <button class="btn btn-primary">New Head Line</button>
+            <button class="btn btn-primary add-new-sub-content">New Head Line</button>
         </div>
         <div class="sortable">
             @foreach ($orders as $order)
-                <div class="card mt-2">
+                <div class="card mt-2 main-div-content-sub" data-id="{{$order->subheadings->id}}">
                     <div class="card-body">
-                        <h5 class="card-title">{{$order->subheadings->text_header}}</h5>
+                        <h5 class="card-title text_header">{{$order->subheadings->text_header}}</h5>
                         <a class="update-head-line"><i class="material-icons">mode_edit</i></a>
                         @if (!empty(current($order->subheadings->many)))
                             <a href="{{url("/setting/{$present->id}/{$order->subheadings->id}")}}" class="ml-4"><i
-                                    class="material-icons">@if(count(current($order->subheadings->many))>9) filter_9_plus @else filter_{{count(current($order->subheadings->many))}} @endif</i></a>
-                            @else
+                                    class="material-icons">@if(count(current($order->subheadings->many))>9)
+                                        filter_9_plus @else
+                                        filter_{{count(current($order->subheadings->many))}} @endif</i></a>
+                        @else
                             <i class="material-icons ml-4">filter</i>
                         @endif
-                        <a class="ml-4 icon-delete"><i class="material-icons">delete_forever</i></a>
+                        <a class="ml-4 icon-delete delete-present-sub"><i class="material-icons">delete_forever</i></a>
                     </div>
                 </div>
             @endforeach

@@ -18,17 +18,17 @@ class CreateSubheadingsTable extends Migration
             $table->unsignedBigInteger('present_id');
             $table->unsignedBigInteger('main_slide_id');
             $table->string('color', 30)->index()->default('#FFFFFF');
-            $table->foreign('color')
-                ->references('code')
-                ->on('colors')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
+//            $table->foreign('color')
+//                ->references('code')
+//                ->on('colors')
+//                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->string('text_header');
             $table->string('section_id')->unique();
             $table->string('background', 30)->index();
-            $table->foreign('background')
-                ->references('code')
-                ->on('colors')
-                ->onUpdate('CASCADE')->onDelete('CASCADE');
+//            $table->foreign('background')
+//                ->references('code')
+//                ->on('colors')
+//                ->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('present_id')
                 ->references('id')
                 ->on('presents')

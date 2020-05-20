@@ -36,12 +36,15 @@ Route::get('/migrated', function () {
 
 Route::get('/', 'Backend\AuthController@index');
 Route::group(['namespace' => 'Backend', 'middleware' => 'auth'], function () {
+    Route::post('/setting/update', 'MainSlideController@update');
     Route::delete('/', 'AuthController@delete');
     Route::post('/create-present', 'AuthController@create');
     Route::put('/create-present/{id}', 'AuthController@create');
     Route::get('/setting/{id}', 'AuthController@get');
     Route::get('/setting/{present}/{sub}', 'SubheadingManyController@get');
-    Route::post('/setting/update', 'MainSlideController@update');
+    Route::post('/setting/delete/{sub}', 'SubheadingController@delete');
+    Route::post('/setting/get/{sub}', 'SubheadingController@get');
+    Route::post('/setting/update-create', 'SubheadingController@updateCreate');
 });
 
 Route::any('{error}', function ($page) {
