@@ -73,15 +73,15 @@
                     <div class="card-body">
                         <h5 class="card-title text_header">{{$order->subheadings->text_header}}</h5>
                         <a class="update-head-line"><i class="material-icons">mode_edit</i></a>
+                        <a class="ml-4 add-sub-many"><i class="material-icons">library_add</i></a>
+                        <a class="ml-4 icon-delete delete-present-sub"><i class="material-icons">delete_forever</i></a>
+
                         @if (!empty(current($order->subheadings->many)))
-                            <a href="{{url("/setting/{$present->id}/{$order->subheadings->id}")}}" class="ml-4"><i
-                                    class="material-icons">@if(count(current($order->subheadings->many))>9)
-                                        filter_9_plus @else
-                                        filter_{{count(current($order->subheadings->many))}} @endif</i></a>
+                            <i class="material-icons ml-4 active-sub-many-get-data">@if(count(current($order->subheadings->many))>9)
+                                    filter_9_plus @else filter_{{count(current($order->subheadings->many))}} @endif</i>
                         @else
                             <i class="material-icons ml-4">filter</i>
                         @endif
-                        <a class="ml-4 icon-delete delete-present-sub"><i class="material-icons">delete_forever</i></a>
                     </div>
                 </div>
             @endforeach

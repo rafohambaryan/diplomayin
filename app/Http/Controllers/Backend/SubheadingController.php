@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Repository\Backend\Interfaces\SubheadingManyRepositoryInterface;
 use App\Repository\Backend\Interfaces\SubheadingRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,10 +10,14 @@ use App\Http\Controllers\Controller;
 class SubheadingController extends Controller
 {
     protected $interfaces;
+    protected $many;
 
-    public function __construct(SubheadingRepositoryInterface $interfaces)
+    private $return;
+
+    public function __construct(SubheadingRepositoryInterface $interfaces, SubheadingManyRepositoryInterface $many)
     {
         $this->interfaces = $interfaces;
+        $this->many = $many;
     }
 
     public function get($sub_id)
@@ -38,6 +43,12 @@ class SubheadingController extends Controller
         } else {
             $img = 'deleted';
         }
-        return response()->json(['success' => true, 'data' => $this->interfaces->createUpdate($data, $img)], 200);
+        if ($request->has('sub_many')) {
+            $this->return = $this->many->createSubMany($data, $img);
+            unset($data['sub_many']);
+        } else {
+            $this->return = $this->interfaces->createUpdate($data, $img);
+        }
+        return response()->json(['success' => true, 'data' => $this->return], 200);
     }
 }

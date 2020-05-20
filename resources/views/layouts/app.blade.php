@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('/css/libs/material-cons.css')}}">
     <link rel="stylesheet" href="{{asset('/css/libs/jquery-confirm.min.css')}}">
     <link rel="stylesheet" href="{{asset('/css/bootstrap/bootstrap.css')}}">
+    <link href="{{ asset('/css/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -76,10 +77,11 @@
         @yield('content')
     </main>
 </div>
-<script src="{{asset('/js/jquery-3.5.1.min.js')}}"></script>
-<script src="{{asset('/js/libs/sweetalert2.min.js')}}"></script>
-<script src="{{asset('/js/bootstrap/bootstrap.js')}}"></script>
-<script src="{{asset('/js/libs/jquery-confirm.min.js')}}"></script>
-<script src="{{asset('/js/main.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/jquery-3.5.1.min.js')}}" ></script>
+<script type="text/javascript" src="{{asset('/js/jquery-ui.js')}}" ></script>
+<script type="text/javascript" src="{{asset('/js/libs/sweetalert2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/bootstrap/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/libs/jquery-confirm.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/main.js')}}"></script>
 </body>
 </html>

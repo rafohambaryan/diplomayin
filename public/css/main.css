@@ -280,6 +280,21 @@ table.table .avatar {
     border: 1px solid red !important;
 }
 
+.sortable {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.add-sub-many i {
+    color: green;
+    cursor: pointer;
+}
+
+.active-sub-many-get-data {
+    color: rgba(33, 92, 140, 0.92);
+    cursor: pointer;
+}
+
 .update-create-present-content {
     width: 96%;
 }

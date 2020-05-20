@@ -1,4 +1,7 @@
+// $.noConflict();
 $(document).ready(function () {
+    'use strict';
+
     function new_content_line(content = '') {
         return `<div class="row mt-2 content-line-div">
 
@@ -54,6 +57,10 @@ $(document).ready(function () {
                     </form>`;
     }
 
+    $(".sortable").sortable({
+        connectWith: ".main-div-content-sub",
+        placeholder: "ui-state-highlight"
+    });
 
     var checkbox = $('table tbody input[type="checkbox"]');
     $("#selectAll").click(function () {
@@ -72,6 +79,7 @@ $(document).ready(function () {
             $("#selectAll").prop("checked", false);
         }
     });
+    var mainSlideForm = new FormData();
     $(document).on('click', '.delete-present', function () {
         let presents_id = [];
         let isCheck = true;
@@ -197,7 +205,6 @@ $(document).ready(function () {
         let color = $(this).val();
         $(this).css('background-color', color);
     });
-    var mainSlideForm = new FormData();
     $(document).on('change', '#main_logo', function () {
         mainSlideForm.append('logo', this.files[0]);
         $('label[for=main_logo] img').attr('src', URL.createObjectURL(this.files[0]))
@@ -295,8 +302,6 @@ $(document).ready(function () {
     $(document).on('click', '.delete-content-icon', function () {
         $(this).parents('.content-line-div').remove()
     });
-
-
     $(document).on('click', '.add-content-icon', function () {
         $(this).parents('.add-new-content-line').append(new_content_line());
     });
@@ -455,5 +460,97 @@ $(document).ready(function () {
                 });
             }
         });
+    });
+    $(document).on('click', '.add-sub-many', function () {
+        let sub_id = $(this).parents('.main-div-content-sub').attr('data-id');
+        let dataHtml = $(this).parents('.main-div-content-sub');
+
+        $.confirm({
+            title: 'Create slide ' + dataHtml.find('.text_header').text(),
+            useBootstrap: false,
+            boxWidth: '90%',
+            content: update_create_present_content('', '#ffffff', '#000000', [], null, sub_id),
+            buttons: {
+                deleteUser: {
+                    text: 'Save',
+                    btnClass: 'btn-green',
+                    action: function () {
+                        var form = this.$content.find('.update-create-present-content').serializeArray();
+                        let valid = true;
+                        let _this = this.$content;
+                        mainSlideForm.append('content', null);
+                        $.each(form, function (i, item) {
+                            if (item.name === 'content[]' && item.value.length === 0) {
+                                return true;
+                            } else {
+                                mainSlideForm.append(item.name, item.value);
+                            }
+                            if (item.name === 'text_header' && item.value.length === 0) {
+                                valid = false;
+                                _this.find('input[name=text_header]').addClass('border-error');
+                            }
+                        });
+
+                        if (valid) {
+                            mainSlideForm.append('sub_many', '1');
+                            $.ajax({
+                                headers: {
+                                    "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+                                },
+                                url: window.location.origin + '/setting/update-create',
+                                type: 'post',
+                                dataType: 'json',
+                                data: mainSlideForm,
+                                contentType: false,
+                                processData: false,
+                                success: function (res) {
+                                    if (res.success) {
+                                        mainSlideForm = new FormData();
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Your work has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1400);
+                                    }
+                                },
+                                error: function () {
+                                    mainSlideForm = new FormData();
+                                }
+                            });
+                            return true
+                        }
+                        return false;
+                    }
+                },
+                cancel: function () {
+                    return true;
+                }
+            }
+        });
+
+    })
+    $(document).on('click', '.active-sub-many-get-data', function () {
+        let sub_id = $(this).parents('.main-div-content-sub').attr('data-id');
+        let dataHtml = $(this).parents('.main-div-content-sub');
+        $.confirm({
+            title: dataHtml.find('.text_header').text(),
+            useBootstrap: false,
+            boxWidth: '95%',
+            content: `<div class="container">ddd</div>`,
+            buttons: {
+                cancel: function () {
+                    return true;
+                }
+            }
+        });
+
+
+
+
+
     })
 });
