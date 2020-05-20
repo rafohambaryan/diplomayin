@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'present_id', 'subheading_id ', 'user_id', 'order'
+        'present_id', 'subheading_id', 'user_id', 'order'
     ];
 
     public function presentOne()

@@ -5,7 +5,7 @@
             @if (json_decode($content->content))
                 <ul>
                     @foreach(json_decode($content->content) as $content_man)
-                        <li><p>{{$content_man}}</p></li>
+                        <li><p>{!! $content_man !!}</p></li>
                     @endforeach
                 </ul>
             @endif

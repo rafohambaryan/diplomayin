@@ -7,7 +7,7 @@ $(document).ready(function () {
                             </div>`
     }
 
-    function update_create_present_content(slide_header = '', color = '#000000', background = '#ffffff', contents = [], img = null, sub_id = 0) {
+    function update_create_present_content(slide_header = '', color = '#ffffff', background = '#000000', contents = [], img = null, sub_id = 0) {
         var content_line = '';
         var isImg = '0';
         var image = '';
@@ -325,6 +325,8 @@ $(document).ready(function () {
                     btnClass: 'btn-green',
                     action: function () {
                         var form = this.$content.find('.update-create-present-content').serializeArray();
+                        let valid = true;
+                        let _this = this.$content;
                         mainSlideForm.append('content', null);
                         $.each(form, function (i, item) {
                             if (item.name === 'content[]' && item.value.length === 0) {
@@ -332,30 +334,42 @@ $(document).ready(function () {
                             } else {
                                 mainSlideForm.append(item.name, item.value);
                             }
-                        });
-
-                        $.ajax({
-                            headers: {
-                                "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
-                            },
-                            url: window.location.origin + '/setting/update-create',
-                            type: 'post',
-                            dataType: 'json',
-                            data: mainSlideForm,
-                            contentType: false,
-                            processData: false,
-                            success: function (res) {
-                                if (res.success) {
-                                    mainSlideForm = new FormData();
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Your work has been saved',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                }
+                            if (item.name === 'text_header' && item.value.length === 0) {
+                                valid = false;
+                                _this.find('input[name=text_header]').addClass('border-error');
                             }
                         });
+
+                        if (valid) {
+                            $.ajax({
+                                headers: {
+                                    "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+                                },
+                                url: window.location.origin + '/setting/update-create',
+                                type: 'post',
+                                dataType: 'json',
+                                data: mainSlideForm,
+                                contentType: false,
+                                processData: false,
+                                success: function (res) {
+                                    if (res.success) {
+                                        mainSlideForm = new FormData();
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Your work has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1400);
+                                    }
+                                }
+                            });
+                            return true;
+                        } else {
+                            return false;
+                        }
                     }
                 },
                 cancel: function () {
@@ -390,6 +404,8 @@ $(document).ready(function () {
                             btnClass: 'btn-green',
                             action: function () {
                                 var form = this.$content.find('.update-create-present-content').serializeArray();
+                                let valid = true;
+                                let _this = this.$content;
                                 mainSlideForm.append('content', null);
                                 $.each(form, function (i, item) {
                                     if (item.name === 'content[]' && item.value.length === 0) {
@@ -397,32 +413,39 @@ $(document).ready(function () {
                                     } else {
                                         mainSlideForm.append(item.name, item.value);
                                     }
-                                });
-
-                                $.ajax({
-                                    headers: {
-                                        "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
-                                    },
-                                    url: window.location.origin + '/setting/update-create',
-                                    type: 'post',
-                                    dataType: 'json',
-                                    data: mainSlideForm,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (res) {
-                                        if (res.success) {
-                                            dataHtml.find('.text_header').text(res.data.text_header);
-                                            mainSlideForm = new FormData();
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'Your work has been saved',
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            });
-                                        }
+                                    if (item.name === 'text_header' && item.value.length === 0) {
+                                        valid = false;
+                                        _this.find('input[name=text_header]').addClass('border-error');
                                     }
                                 });
-                                return true;
+
+                                if (valid) {
+                                    $.ajax({
+                                        headers: {
+                                            "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+                                        },
+                                        url: window.location.origin + '/setting/update-create',
+                                        type: 'post',
+                                        dataType: 'json',
+                                        data: mainSlideForm,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (res) {
+                                            if (res.success) {
+                                                dataHtml.find('.text_header').text(res.data.text_header);
+                                                mainSlideForm = new FormData();
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Your work has been saved',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                });
+                                            }
+                                        }
+                                    });
+                                    return true
+                                }
+                                return false;
                             }
                         },
                         cancel: function () {

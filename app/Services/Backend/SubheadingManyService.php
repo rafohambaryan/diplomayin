@@ -14,4 +14,9 @@ class SubheadingManyService extends SubheadingMany
     {
         return $this->where('present_id', $present->id)->where('subheading_id', $sub_id)->get();
     }
+
+    public function create()
+    {
+
+    }
 }
