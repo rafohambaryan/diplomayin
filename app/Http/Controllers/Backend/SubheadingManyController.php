@@ -15,12 +15,21 @@ class SubheadingManyController extends Controller
         $this->interfaces = $interfaces;
     }
 
-    public function get($present_id, $sub_id)
+    public function get(Request $request, $sub_id)
     {
-        $sub_many = $this->interfaces->get($present_id, $sub_id);
-        if (empty($sub_many)) {
-            return redirect()->back();
+        return response()->json($this->interfaces->get($request->all(), $sub_id));
+    }
+
+    public function delete(Request $request, $id)
+    {
+        if (!$request->has('present_id') || !$request->has('main_slide_id')) {
+            return response()->json(['success' => false]);
         }
-        return view('pages.subheading_manies', ['subs' => $sub_many]);
+        return response()->json(['success' => true, 'message' => $this->interfaces->delete($request->input('present_id'), $request->input('main_slide_id'), $id)]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        dd($id);
     }
 }

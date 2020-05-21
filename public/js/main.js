@@ -15,11 +15,14 @@ $(document).ready(function () {
         var isImg = '0';
         var image = '';
         var d_none = 'd-none';
-        if (contents.length > 0) {
-            $.each(contents, function (i, item) {
-                content_line += new_content_line(item)
-            })
+        if (contents !== null) {
+            if (contents.length > 0) {
+                $.each(contents, function (i, item) {
+                    content_line += new_content_line(item)
+                })
+            }
         }
+        // console.log(img)
         if (img) {
             d_none = '';
             image = `<img class="update-create-image-content" src="${window.location.origin + '/uploads/img/' + img}" alt="content-img">`;
@@ -512,9 +515,17 @@ $(document).ready(function () {
                                             showConfirmButton: false,
                                             timer: 1500
                                         });
-                                        setTimeout(function () {
-                                            window.location.reload();
-                                        }, 1400);
+                                        dataHtml.find('.append-many-slider-count i').remove();
+                                        let count = res.data.count;
+                                        if (count > 0) {
+                                            if (count > 9) {
+                                                dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4 active-sub-many-get-data">filter_9_plus</i>`);
+                                            } else {
+                                                dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4 active-sub-many-get-data">filter_${count}</i>`);
+                                            }
+                                        } else {
+                                            dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4">filter</i>`);
+                                        }
                                     }
                                 },
                                 error: function () {
@@ -532,24 +543,217 @@ $(document).ready(function () {
             }
         });
 
-    })
+    });
+
     $(document).on('click', '.active-sub-many-get-data', function () {
         let sub_id = $(this).parents('.main-div-content-sub').attr('data-id');
         let dataHtml = $(this).parents('.main-div-content-sub');
-        $.confirm({
-            title: dataHtml.find('.text_header').text(),
-            useBootstrap: false,
-            boxWidth: '95%',
-            content: `<div class="container">ddd</div>`,
-            buttons: {
-                cancel: function () {
-                    return true;
-                }
+        let present_id = $('#present_id').val();
+        let main_slide_id = $('#main_slide_id_id').val();
+        fetch(window.location.origin + `/setting/get-sub/${sub_id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+            },
+            body: JSON.stringify({present_id: present_id, main_slide_id: main_slide_id}),
+            method: 'post',
+        }).then(response => {
+            return response.json();
+        }).then((res) => {
+            if (res.success) {
+                let data = res.data;
+                let contentHtml = '';
+                $.each(data, function (i, item) {
+                    contentHtml += `<div class="card mt-2 main-div-content-sub" data-id="${item.id}" data-parent-id="${sub_id}">
+                                        <div class="card-body">
+                                            <h5 class="card-title text_header">${item.text_header}</h5>
+                                            <a class="update-head-line-sub"><i class="material-icons">mode_edit</i></a>
+                                            <a class="ml-4 icon-delete delete-subheading-many"><i class="material-icons">delete_forever</i></a>
+                                        </div>
+                                    </div> `;
+                });
+                $.confirm({
+                    title: '',
+                    useBootstrap: false,
+                    smoothContent: true,
+                    boxWidth: '95%',
+                    content: `<div class="container">
+                                    <h2 class="mb-3">${dataHtml.find('.text_header').text()}</h2>
+                                 <div class="sortable-no">${contentHtml}</div>
+                               </div>`,
+                    buttons: {
+                        cancel: function () {
+                            dataHtml.find('.append-many-slider-count i').remove();
+                            let data = this.$content.find('.sortable-no .main-div-content-sub');
+                            let filter_count = data.length;
+                            if (filter_count > 0) {
+                                if (filter_count > 9) {
+                                    dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4 active-sub-many-get-data">filter_9_plus</i>`);
+                                } else {
+                                    dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4 active-sub-many-get-data">filter_${filter_count}</i>`);
+                                }
+                            } else {
+                                dataHtml.find('.append-many-slider-count').append(`<i class="material-icons ml-4">filter</i>`);
+                            }
+                            return true;
+                        }
+                    }
+                });
             }
         });
 
 
+    });
 
+    $(document).on('click', '.update-head-line-sub', function () {
+        let content = $(this).parents('.main-div-content-sub');
+        let sub_many_id = content.attr('data-id');
+        let sub_id = content.attr('data-parent-id');
+        let present_id = $('#present_id').val();
+        let main_slide_id = $('#main_slide_id_id').val();
+        fetch(window.location.origin + `/setting/get-sub/${sub_id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+            },
+            body: JSON.stringify({present_id: present_id, main_slide_id: main_slide_id, find: sub_many_id}),
+            method: 'post',
+        }).then(response => {
+            return response.json();
+        }).then((res) => {
+            if (res.success) {
+                console.log(res);
+
+                $.confirm({
+                    title: 'Update',
+                    useBootstrap: false,
+                    boxWidth: '80%',
+                    content: update_create_present_content(res.data.text_header, res.data.color, res.data.background, JSON.parse(res.data.content.content), res.data.content.img),
+                    buttons: {
+                        deleteUser: {
+                            text: 'Save',
+                            btnClass: 'btn-green',
+                            action: function () {
+                                var form = this.$content.find('.update-create-present-content').serializeArray();
+                                let valid = true;
+                                let _this = this.$content;
+                                mainSlideForm.append('content', null);
+                                $.each(form, function (i, item) {
+                                    if (item.name === 'content[]' && item.value.length === 0) {
+                                        return true;
+                                    } else {
+                                        mainSlideForm.append(item.name, item.value);
+                                    }
+                                    if (item.name === 'text_header' && item.value.length === 0) {
+                                        valid = false;
+                                        _this.find('input[name=text_header]').addClass('border-error');
+                                    }
+                                });
+
+                                if (valid) {
+                                    mainSlideForm.append('sub_many', '1');
+                                    $.ajax({
+                                        headers: {
+                                            "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+                                        },
+                                        url: window.location.origin + '/setting/get-sub/' + sub_many_id,
+                                        type: 'PUT',
+                                        dataType: 'json',
+                                        data: mainSlideForm,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (res) {
+                                            if (res.success) {
+                                                mainSlideForm = new FormData();
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Your work has been saved',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                });
+                                            }
+                                        },
+                                        error: function () {
+                                            mainSlideForm = new FormData();
+                                        }
+                                    });
+                                    return true
+                                }
+                                return false;
+                            }
+                        },
+                        cancel: function () {
+                            mainSlideForm = new FormData();
+                            return true;
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+
+    });
+    $(document).on('click', '.delete-subheading-many', function () {
+        let sub_data = $(this).parents('.main-div-content-sub');
+        $.confirm({
+            title: '',
+            content: 'you are sure to delete?',
+            buttons: {
+                heyThere: {
+                    btnClass: 'btn-red',
+                    text: 'Deleted',
+                    action: function () {
+                        fetch(window.location.origin + `/setting/get-sub/${sub_data.attr('data-id')}`, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
+                            },
+                            body: JSON.stringify({
+                                present_id: $('#present_id').val(),
+                                main_slide_id: $('#main_slide_id_id').val()
+                            }),
+                            method: 'delete',
+                        }).then(response => {
+                            return response.json();
+                        }).then((res) => {
+                            if (res.success) {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    onOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Signed in successfully'
+                                });
+                                sub_data.remove();
+                            }
+                        });
+                        return true;
+                    }
+                },
+                cancelBtn: {
+                    text: 'Cancel',
+                    action: function () {
+                        return true;
+                    }
+                }
+            }
+        });
 
 
     })

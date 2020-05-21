@@ -6,7 +6,9 @@ namespace App\Repository\Backend\Interfaces;
 
 interface SubheadingManyRepositoryInterface
 {
-    public function get($present_id, $sub_id);
+    public function get($data, $sub_id);
 
     public function createSubMany($data, $img);
+
+    public function delete($present_id, $main_slide_id, $id);
 }

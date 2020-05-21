@@ -76,15 +76,20 @@
                         <a class="ml-4 add-sub-many"><i class="material-icons">library_add</i></a>
                         <a class="ml-4 icon-delete delete-present-sub"><i class="material-icons">delete_forever</i></a>
 
-                        @if (!empty(current($order->subheadings->many)))
-                            <i class="material-icons ml-4 active-sub-many-get-data">@if(count(current($order->subheadings->many))>9)
-                                    filter_9_plus @else filter_{{count(current($order->subheadings->many))}} @endif</i>
-                        @else
-                            <i class="material-icons ml-4">filter</i>
-                        @endif
+                        <span class="append-many-slider-count">
+                            @if (!empty(current($order->subheadings->many)))
+                                <i class="material-icons ml-4 active-sub-many-get-data">@if(count(current($order->subheadings->many))>9)
+                                        filter_9_plus @else
+                                        filter_{{count(current($order->subheadings->many))}} @endif</i>
+                            @else
+                                <i class="material-icons ml-4">filter</i>
+                            @endif
+                        </span>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 @endsection
+
+

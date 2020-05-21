@@ -45,6 +45,10 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth'], function () {
     Route::post('/setting/delete/{sub}', 'SubheadingController@delete');
     Route::post('/setting/get/{sub}', 'SubheadingController@get');
     Route::post('/setting/update-create', 'SubheadingController@updateCreate');
+
+    Route::post('/setting/get-sub/{sub}', 'SubheadingManyController@get');
+    Route::delete('/setting/get-sub/{sub}', 'SubheadingManyController@delete');
+    Route::put('/setting/get-sub/{sub}', 'SubheadingManyController@update');
 });
 
 Route::any('{error}', function ($page) {

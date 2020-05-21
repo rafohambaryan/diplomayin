@@ -280,9 +280,17 @@ table.table .avatar {
     border: 1px solid red !important;
 }
 
-.sortable {
-    border: 1px solid black;
+.sortable-no {
+    border: 1px solid rgba(0, 0, 0, 0.6);
     padding: 10px;
+}
+
+.sortable {
+    border: 1px dotted rgba(0, 0, 0, 0.74);
+    padding: 10px;
+}
+.swal2-container .swal2-center{
+    z-index: 999 !important;
 }
 
 .add-sub-many i {
@@ -308,13 +316,13 @@ table.table .avatar {
     color: #be0000;
 }
 
-.update-head-line i {
+.update-head-line i, .update-head-line-sub i {
     color: green;
     cursor: pointer;
 }
 
-.update-head-line i:hover {
-    color: #006b00;
+.update-head-line i:hover, .update-head-line-sub i:hover {
+    color: #006300;
 }
 
 .delete-content-icon {
