@@ -626,8 +626,6 @@ $(document).ready(function () {
             return response.json();
         }).then((res) => {
             if (res.success) {
-                console.log(res);
-
                 $.confirm({
                     title: 'Update',
                     useBootstrap: false,
@@ -655,25 +653,25 @@ $(document).ready(function () {
                                 });
 
                                 if (valid) {
-                                    mainSlideForm.append('sub_many', '1');
                                     $.ajax({
                                         headers: {
                                             "X-CSRF-Token": $('meta[name="csrf_token"]').attr('content')
                                         },
-                                        url: window.location.origin + '/setting/get-sub/' + sub_many_id,
-                                        type: 'PUT',
+                                        url: window.location.origin + '/setting/sub-many-update/' + sub_many_id,
+                                        type: 'post',
                                         dataType: 'json',
                                         data: mainSlideForm,
                                         contentType: false,
                                         processData: false,
                                         success: function (res) {
                                             if (res.success) {
+                                                content.find('.text_header').text(res.data.text_header);
                                                 mainSlideForm = new FormData();
                                                 Swal.fire({
                                                     icon: 'success',
                                                     title: 'Your work has been saved',
                                                     showConfirmButton: false,
-                                                    timer: 1500
+                                                    timer: 1000
                                                 });
                                             }
                                         },

@@ -86,4 +86,41 @@ class SubheadingManyRepository implements SubheadingManyRepositoryInterface
         }
         return 0;
     }
+
+    public function update($data, $img, $id)
+    {
+        $subheadingMany = $this->services->findOne($data['present_id'], $data['main_slide_id'], $id);
+        if ($subheadingMany) {
+            $subheadingMany->text_header = $data['text_header'];
+            $subheadingMany->color = $data['color'];
+            $subheadingMany->background = $data['background'];
+            $subheadingMany->save();
+            $subContent = $subheadingMany->content;
+            if ($img === 'deleted' && $subContent->img) {
+                if (file_exists(public_path('/uploads/img/' . $subContent->img))) {
+                    File::delete(public_path('/uploads/img/' . $subContent->img));
+                }
+                $subContent->img = null;
+            } else if ($img !== null && $img !== 'deleted') {
+                if ($subContent->img) {
+                    if (file_exists(public_path('/uploads/img/' . $subContent->img))) {
+                        File::delete(public_path('/uploads/img/' . $subContent->img));
+                    }
+                }
+                $path = Str::random(10) . time() . '.' . $img->getClientOriginalExtension();
+                $img->move(public_path('/uploads/img/'), $path);
+                $subContent->img = $path;
+            }
+            if ($data['content'] == 'null') {
+                $subContent->content = null;
+            } else {
+                $subContent->content = json_encode($data['content']);
+            }
+            $subContent->save();
+            $data['success'] = true;
+            return $data;
+        }
+        $data['success'] = true;
+        return $data;
+    }
 }

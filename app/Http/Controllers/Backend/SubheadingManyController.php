@@ -28,8 +28,19 @@ class SubheadingManyController extends Controller
         return response()->json(['success' => true, 'message' => $this->interfaces->delete($request->input('present_id'), $request->input('main_slide_id'), $id)]);
     }
 
-    public function update(Request $request, $id)
+    public function updated(Request $request, $id)
     {
-        dd($id);
+        $img = null;
+        $data = $request->all();
+        if ($request->input('content-image-bool') == '1') {
+            if ($request->has('content-img')) {
+                $img = $request->file('content-img');
+                unset($data['content-img']);
+            }
+
+        } else {
+            $img = 'deleted';
+        }
+        return response()->json(['success' => true, 'data' => $this->interfaces->update($data, $img, $id)], 200);
     }
 }

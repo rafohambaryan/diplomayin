@@ -12,6 +12,11 @@ class ContentSubheading extends Model
 
     public function contentType()
     {
-        return $this->belongsTo(ContentType::class,'content_type_id','id');
+        return $this->belongsTo(ContentType::class, 'content_type_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Subheading::class,'subheading_id','id');
     }
 }

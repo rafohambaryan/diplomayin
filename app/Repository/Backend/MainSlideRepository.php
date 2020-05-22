@@ -7,6 +7,7 @@ namespace App\Repository\Backend;
 use App\Repository\Backend\Interfaces\MainSlideRepositoryInterface;
 use App\Services\Backend\MainSlideService;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class MainSlideRepository implements MainSlideRepositoryInterface
 {
@@ -30,14 +31,20 @@ class MainSlideRepository implements MainSlideRepositoryInterface
         }
         if ($request->has('logo')) {
             $logo = $request->file('logo');
-            File::delete(public_path('uploads/logo/' . $present->present_logo));
-            $logo->move(public_path('/uploads/logo/'), $present->logo);
+            $path = Str::random(10) . time() . '.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path('/uploads/logo/'), $path);
+            File::delete(public_path('uploads/logo/' . $present->logo));
+            $present->logo = $path;
+            $present->save();
             unset($data['logo']);
         }
         if ($request->has('present_logo')) {
             $present_logo = $request->file('present_logo');
+            $path_present = Str::random(10) . time() . '.' . $present_logo->getClientOriginalExtension();
+            $present_logo->move(public_path('/uploads/present_logo/'), $path_present);
             File::delete(public_path('uploads/present_logo/' . $present->present_logo));
-            $present_logo->move(public_path('/uploads/present_logo/'), $present->present_logo);
+            $present->present_logo = $path_present;
+            $present->save();
             unset($data['present_logo']);
         }
         $this->service->updateMainSlide($data, $present);

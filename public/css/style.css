@@ -33,7 +33,7 @@
 }
 
 .loader {
-    position: absolute!important;
+    position: absolute !important;
     top: 0;
     width: 100%;
     height: 100vh;
@@ -154,7 +154,7 @@ a {
 }
 
 .mysql-logo-all-page img {
-    width: 600px;
+    width: 500px;
 }
 
 .content-main-slider p {
@@ -179,7 +179,8 @@ a {
     left: 5px;
     background-color: rgba(255, 255, 255, 0.7);
 }
-.haph-logo img{
+
+.haph-logo img {
     max-height: 250px;
 }
 
@@ -226,31 +227,36 @@ h3 {
     border: 1px solid #24221F;
 }
 
-.costume-size{
+.costume-size {
     width: 60%;
     text-align: left;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
 }
-.costume-size li p{
+
+.costume-size li p {
     margin-top: 10px;
 }
-.margin-bottom-25{
-    margin-bottom: 25px!important;
+
+.margin-bottom-25 {
+    margin-bottom: 25px !important;
 }
-.costume-size span{
+
+.costume-size span {
     color: white;
     border-bottom: 2px solid #ffffff;
     /*margin-bottom: 25px;*/
     padding-bottom: 10px;
     font-size: 35px;
 }
-.costume-size p, .costume-size h2 ,.costume-size li {
-  text-align: left;
+
+.costume-size p, .costume-size h2, .costume-size li {
+    text-align: left;
     color: white;
 }
-.costume-size ul{
+
+.costume-size ul {
     margin: 40px 0 0 16px;
 }
 
@@ -298,6 +304,15 @@ h3 {
     text-transform: none;
     font-size: 45px;
 }
-.d-none{
-    display: none!important;
+
+.d-none {
+    display: none !important;
+}
+
+.image-slide-main-div {
+    max-width: 320px;
+    margin-top: 20px;
+}
+.image-slide-main-div img {
+    width: 100%;
 }
