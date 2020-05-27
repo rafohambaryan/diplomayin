@@ -28,8 +28,8 @@ Route::get('/migrated', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('view:clear');
-//    Artisan::call('migrate');
-//    Artisan::call('db:seed');
+    Artisan::call('migrate');
+    Artisan::call('db:seed');
     echo '<h3>All cache has been cleared.</h3>';
 
 });

@@ -65,14 +65,16 @@ class DefoultPresentSeeder extends Seeder
             'topic' => 'Տվյալների բազայի նախագծում և ծրագրավորում օգտագործելով MySQL',
             'student' => 'Ռաֆայել Համբարյան',
             'head' => 'Արտակ Չախոյան',
-            'background' => '#00BFFF',
+            'background' => '#ebfffc',
+            'color' => '#000000',
         ]);
         $main_slider_id = $main_Slides->id;
 
         $subheading_1 = Subheading::create([
             'present_id' => $this->present_id,
             'main_slide_id' => $main_slider_id,
-            'background' => '#00DED1',
+            'background' => '#e6e6e6',
+            'color' => '#000000',
             'text_header' => 'Ընդհանուր նկարագրություն',
             'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
@@ -95,7 +97,8 @@ class DefoultPresentSeeder extends Seeder
         $subheading_2 = Subheading::create([
             'present_id' => $this->present_id,
             'main_slide_id' => $main_slider_id,
-            'background' => '#5F9EA0',
+            'background' => '#5cc0ff',
+            'color' => '#000000',
             'text_header' => 'Ինչ է MySQL- ը',
             'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
@@ -116,15 +119,16 @@ class DefoultPresentSeeder extends Seeder
             'present_id' => $this->present_id,
             'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
+            'color' => '#FFFFFF',
             'text_header' => 'Պատմություն',
             'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_3 = ContentSubheading::create([
             'content' => json_encode([
-                'Microsoft-ը, Sybase-ը և Ashton-Tate-ը ի սկզբանե միավորվեցին՝ մի ծրագրի ստեղծման և շուկա բացթողնման համար, որը ստացավ SQL Server 1.0 OS/2 -ի համար անվանումը (1989 թ.), որը փաստացի համարժեքն էր Sybase SQL Server 3.0 Unix, VMS-ի և այլնի համար։',
-                'Microsoft SQL Server 6.0-ը առաջին SQL Server-ի տարբերակն էր, որը ստեղծված էր բացառապես Windows NT-ի ճարտարապետության համար և առանց մշակման գործընթացում Sybase-ի մասնակցության։',
-
+                'MySQL- ն ստեղծվել է շվեդական MySQL AB ընկերության կողմից 1995 թ.-ին: Պլատֆորմի մշակողներն էին Michael Widenius- ը (Monty), David Axmark- ը և Allan Larsson- ը:',
+                'Հիմնական նպատակն էր տնային և պրոֆեսիոնալ օգտագործողներին տվյալների կառավարման արդյունավետ և հուսալի տարբերակներ տրամադրելը:',
+                'Պլատֆորմի ավելի քան կես տասնյակ ալֆա և բետա տարբերակները թողարկվել են 2000 թ.-ին:',
             ]),
             'content_type_id' => 1,
             'subheading_id' => $subheading_3->id,
@@ -135,7 +139,8 @@ class DefoultPresentSeeder extends Seeder
         $subheading_4 = Subheading::create([
             'present_id' => $this->present_id,
             'main_slide_id' => $main_slider_id,
-            'background' => '#00BFFF',
+            'background' => '#75ddff',
+            'color' => '#000000',
             'text_header' => 'Օգտագործում է:',
             'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
@@ -156,10 +161,14 @@ class DefoultPresentSeeder extends Seeder
             'subheading_id' => $subheading_4->id,
             'main_slide_id' => $main_slider_id,
             'background' => '#1E90FF',
+            'color' => '#ffffff',
             'text_header' => 'Օրինակ՝',
             'section_id' => UniqueHash::hash(SubheadingMany::class, 'section_id', 30),
         ]);
         $subheading_content_4_1 = ContentSubheadingMany::create([
+            'content' => json_encode([
+                'Այս օրինակում ես ներկայացնում եմ թե ինչպես է օգտագործվում MySQL-ը կայքերի մեջ:',
+            ]),
             'img' => Copy::file('/images/design-site.png', '/uploads/img/'),
             'content_type_id' => 2,
             'subheading_many_id' => $subheading_4_1->id,
@@ -172,19 +181,59 @@ class DefoultPresentSeeder extends Seeder
             'present_id' => $this->present_id,
             'main_slide_id' => $main_slider_id,
             'background' => '#00BFFF',
+            'color' => '#FFFFFF',
             'text_header' => 'Շարահյուսություն (Syntax)',
             'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
         ]);
 
         $subheading_content_5 = ContentSubheading::create([
             'content' => json_encode([
-                'Հիմնականում տվյալների բազաների Շարահյուսությունը նման են:',
-                'Օրինակ PostgreSQL և MySql բազաներում Շարահյուսությունը նույնն է միայն PostgreSQL-ում աղյուսակները 2 տիպի են լինում public և private իսկ MySql-ում բոլորը public տիպի են',
-
-
+                'Հիմնականում տվյալների բազաների Շարահյուսությունը(Syntax) նման են:',
+                'MySql-ը ունի տվյալների տիպեր և պատրաստի ֆունկցիաներ, MySql-ում աղյուսակ կամ նոր ֆունկցի ստեղծելիս օգտվում ենք SQL հարցումների լեզվից',
+                'SQL հարցումների լեզուն օկտագործվում է տարբեր տվյալների բազաների հետ աշխատելիս:'
             ]),
+            'img' => Copy::file('/images/Screenshot_8.png', '/uploads/img/'),
             'content_type_id' => 1,
             'subheading_id' => $subheading_5->id,
+            'present_id' => $this->present_id
+        ]);
+        $subheading_6 = Subheading::create([
+            'present_id' => $this->present_id,
+            'main_slide_id' => $main_slider_id,
+            'background' => '#d9ffd6',
+            'color' => '#000000',
+            'text_header' => 'Նկարագրություն (client server relations):',
+            'section_id' => UniqueHash::hash(Subheading::class, 'section_id'),
+        ]);
+
+        $subheading_content_6 = ContentSubheading::create([
+            'content' => json_encode([
+                'Նկարագրություն (client server) այստեղ ես ներկայացնում եմ թե ինչպես են client, server և MySql-ը աշխատու, միմյանց  հետ:'
+            ]),
+            'img' => Copy::file('/images/asdf5.png', '/uploads/img/'),
+            'content_type_id' => 1,
+            'subheading_id' => $subheading_6->id,
+            'present_id' => $this->present_id
+        ]);
+
+        $subheading_6_1 = SubheadingMany::create([
+            'present_id' => $this->present_id,
+            'subheading_id' => $subheading_6->id,
+            'main_slide_id' => $main_slider_id,
+            'background' => '#360099',
+            'color' => '#ffffff',
+            'text_header' => 'Նկարագրություն (Relations):',
+            'section_id' => UniqueHash::hash(SubheadingMany::class, 'section_id', 30),
+        ]);
+        ContentSubheadingMany::create([
+            'content' => json_encode([
+                'MySQL-ում տվյալները տարբեր աղյուսակներում պահելիս ինդեքսավորում և կապում ենք միմյանց եկրորդայինը(FOREIGN KEY) առաջնայինի(PRIMARY KEY) հետ և օգտագործում ենք ON UPDATE CASCADE, ON DELETE CASCADE :',
+                'CASCADE-ը նախատեսված է եկրուրդային աղյուսակները առաջնայինից կառավարելու համար:',
+                'Կապերը լինում են՝ մեկ-ը մեկ-ին, մեկ-ը շատ-ին, շատ-ը մեկ-ին, շատ-ը շատ-ին:'
+            ]),
+            'img' => Copy::file('/images/Screenshot_6.png', '/uploads/img/'),
+            'content_type_id' => 2,
+            'subheading_many_id' => $subheading_6_1->id,
             'present_id' => $this->present_id
         ]);
 
@@ -194,6 +243,7 @@ class DefoultPresentSeeder extends Seeder
         $this->setOrder($subheading_3->id);
         $this->setOrder($subheading_4->id);
         $this->setOrder($subheading_5->id);
+        $this->setOrder($subheading_6->id);
 
     }
 }

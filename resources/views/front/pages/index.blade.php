@@ -20,9 +20,9 @@
         </section>
 
         @foreach($orders as $item)
-            <section class="vertical-scrolling" id="{{$item->subheadings->section_id}}">
+            <section class="vertical-scrolling">
                 @if (!empty(current($item->subheadings->many)))
-                    <div class="horizontal-scrolling">
+                    <div class="horizontal-scrolling" id="{{$item->subheadings->section_id}}">
                         @include('front.pages.components.content',[
                                  'header' =>$item->subheadings->text_header,
                                  'content' => $item->subheadings->content
@@ -37,7 +37,7 @@
                         </div>
                     @endforeach
                 @else
-                    <div class="presentacion-contents">
+                    <div class="presentacion-contents"  id="{{$item->subheadings->section_id}}">
                         @include('front.pages.components.content',[
                                  'header' =>$item->subheadings->text_header,
                                  'content' => $item->subheadings->content
