@@ -2,9 +2,6 @@ $(document).ready(function () {
     function hexToRGBA(hex, opacity) {
         return 'rgba(' + (hex = hex.replace('#', '')).match(new RegExp('(.{' + hex.length/3 + '})', 'g')).map(function(l) { return parseInt(hex.length%2 ? l+l : l, 16) }).concat(opacity||1).join(',') + ')';
     }
-
-    console.log(hexToRGBA('#faffff',0.4));
-    console.log(hexToRGBA('#fff7ff',0.8));
     let token = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
     fetch(window.location.origin + '/colors/' + token, {
         headers: {

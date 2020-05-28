@@ -50,7 +50,8 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth'], function () {
     Route::delete('/setting/get-sub/{sub}', 'SubheadingManyController@delete');
     Route::post('/setting/sub-many-update/{sub}', 'SubheadingManyController@updated');
 });
-
+Route::post('/ip-address','IpController@ipAddress');
 Route::any('{error}', function ($page) {
+    dd(4);
     abort(404);
 });

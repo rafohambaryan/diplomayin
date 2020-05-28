@@ -28,6 +28,7 @@
 <script src="https://unpkg.com/smartphoto@1.1.0/js/smartphoto.min.js"></script>
 <script type="text/javascript" src="{{asset('/js/fullpage.js')}}"></script>
 <script src="{{asset('/js/index.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/client.js')}}"></script>
 @stack('script')
 </body>
 </html>
